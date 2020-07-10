@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
     glFlush();
     //glutSwapBuffers();
     
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER,0);
+
 
     //glBindFramebuffer(GL_READ_FRAMEBUFFER,m_FboID);
     //glViewport(0, 0, Width, Height);
@@ -221,39 +221,42 @@ int main(int argc, char *argv[])
     //glBindFramebuffer(GL_READ_FRAMEBUFFER,m_FboID);
     //glFlush();
     //eglSwapBuffers(display, surface);
-    grab(m_FboID);
 
-
-    // // GLfloat vertices[] =   {0.0f, 0.0f, 0.0f,
-    // //                         0.0f, 10.0f, 0.0f,
-    // //                         0.0f, 10.0f, 10.0f,
-    // //                         0.0f, 0.0f, 10.0f,
-    // //                         10.0f,0.0f, 0.0f,
-    // //                         10.0f,10.0f, 0.0f,
-    // //                         10.0f,10.0f, 10.0f ,
-    // //                         10.0f,0.0f, 10.0f};          // 8个顶点坐标
+    glColor3f(0.7f, 0.5f, 0.5f);
+    GLfloat vertices[] =   {0.0f, 0.0f, 0.0f,
+                            0.0f, 0.2f, 0.0f,
+                            0.0f, 0.2f, 0.2f,
+                            0.0f, 0.0f, 0.2f,
+                            0.2f, 0.0f, 0.0f,
+                            0.2f, 0.2f, 0.0f,
+                            0.2f, 0.2f, 0.2f ,
+                            0.2f, 0.0f, 0.2f};          // 8个顶点坐标
                             
-    // // GLubyte indices[] = {0,1,2, 2,3,0,   // 索引数组
-    // //                      0,3,4, 4,5,0,
-    // //                      0,5,6, 6,1,0,
-    // //                      1,6,7, 7,2,1,
-    // //                      7,4,3, 3,2,7,
-    // //                      4,7,6, 6,5,4};
-    // // // 激活顶点数组
-    // // glEnableClientState(GL_VERTEX_ARRAY);
-    // // glVertexPointer(3, GL_FLOAT, 0, vertices);
+    GLubyte indices[] = {0,1,2, 2,3,0,   // 索引数组
+                         0,3,4, 3,4,7,
+                         0,5,1, 4,5,0,
+                         4,6,7, 4,5,6,
+                         5,2,1, 5,2,6,
+                         7,3,2, 7,6,2};
+    glLoadIdentity();
+    gluLookAt( 0.5, 0.5 ,  0.5 , 0.2, 0.2, 0.2,  0, 1, 0);
+    // 激活顶点数组
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, vertices);
  
-    // // // 绘制立方体
-    // // glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+    // 绘制立方体
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
  
-    // // // 禁用顶点数组
-    // // glDisableClientState(GL_VERTEX_ARRAY);
-    // //glFlush();
+    // 禁用顶点数组
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glFlush();
 
     //eglDestroySurface(display, surface);
     //eglDestroyContext(display, context);
     //eglTerminate(display);
 
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER,0);
+    grab(m_FboID);
     return 0;
 
 }
