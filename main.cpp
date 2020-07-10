@@ -250,9 +250,9 @@ int main(int argc, char *argv[])
     // // glDisableClientState(GL_VERTEX_ARRAY);
     // //glFlush();
 
-    eglDestroySurface(display, surface);
-    eglDestroyContext(display, context);
-    eglTerminate(display);
+    //eglDestroySurface(display, surface);
+    //eglDestroyContext(display, context);
+    //eglTerminate(display);
 
     return 0;
 
