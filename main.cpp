@@ -27,109 +27,109 @@ void Rectangle();
 int main(int argc, char *argv[])
 {
 
-    EGLDisplay display;
-	EGLConfig config;
-	EGLContext context;
-	EGLSurface surface;
-	//NativeWindowType native_window;
-	EGLint num_config;
+    // EGLDisplay display;
+	// EGLConfig config;
+	// EGLContext context;
+	// EGLSurface surface;
+	// //NativeWindowType native_window;
+	// EGLint num_config;
 
-	const EGLint attribute_list[] = {
-		EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
-		EGL_BLUE_SIZE, 8,
-		EGL_GREEN_SIZE, 8,
-		EGL_RED_SIZE, 8,
-		EGL_DEPTH_SIZE, 8,
-		EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
-		EGL_NONE
-	};
-	const int pbufferWidth = Width;
-	const int pbufferHeight = Height;
-	const EGLint pbufferAttribs[] = {
-		  EGL_WIDTH, pbufferWidth,
-		  EGL_HEIGHT, pbufferHeight,
-		  EGL_NONE
-	};
-
-
-	//* get an EGL display connection */
-    display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-	if (display == EGL_NO_DISPLAY)
-	{
-		cout << "Get display fail." << endl;
-		return 0;
-	}
-	cout << display << endl;
-
-	/* initialize the EGL display connection */
-	EGLint major = 0;
-	EGLint minor = 1;
-
-	if (eglInitialize(display, &major, &minor))
-	{
-		cout << "ELG" << (EGLint)major << "." << (EGLint)minor << endl;
-	}
-	else
-	{
-		EGLint  err = eglGetError();
-
-		cout << "eglInitialize fail." << endl;
-		cout << err << endl;
-	}
+	// const EGLint attribute_list[] = {
+	// 	EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
+	// 	EGL_BLUE_SIZE, 8,
+	// 	EGL_GREEN_SIZE, 8,
+	// 	EGL_RED_SIZE, 8,
+	// 	EGL_DEPTH_SIZE, 8,
+	// 	EGL_RENDERABLE_TYPE, EGL_OPENGL_BIT,
+	// 	EGL_NONE
+	// };
+	// const int pbufferWidth = Width;
+	// const int pbufferHeight = Height;
+	// const EGLint pbufferAttribs[] = {
+	// 	  EGL_WIDTH, pbufferWidth,
+	// 	  EGL_HEIGHT, pbufferHeight,
+	// 	  EGL_NONE
+	// };
 
 
-	/* get an appropriate EGL frame buffer configuration */
-	if (!eglChooseConfig(display, attribute_list, &config, 1, &num_config))
-	{
-		cout << "eglChooseConfig fail." << endl;
-	}
-	else
-	{
+	// //* get an EGL display connection */
+    // display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+	// if (display == EGL_NO_DISPLAY)
+	// {
+	// 	cout << "Get display fail." << endl;
+	// 	return 0;
+	// }
+	// cout << display << endl;
 
-	}
+	// /* initialize the EGL display connection */
+	// EGLint major = 0;
+	// EGLint minor = 1;
 
-	//EGLint attribute_list_2[] = {
-	//EGL_CONTEXT_CLIENT_VERSION, 3,
-	//EGL_NONE
-	//};
+	// if (eglInitialize(display, &major, &minor))
+	// {
+	// 	cout << "ELG" << (EGLint)major << "." << (EGLint)minor << endl;
+	// }
+	// else
+	// {
+	// 	EGLint  err = eglGetError();
 
-	///* create an EGL rendering context */
-	context = eglCreateContext(display, config, 0 , NULL);
-
-	if (context == 0)
-	{
-		cout << "Creat Contest fail." << endl;
-		//return false;
-	}
-	else
-	{
-		cout << "Susscess Creat Contest" << endl;
-	}
+	// 	cout << "eglInitialize fail." << endl;
+	// 	cout << err << endl;
+	// }
 
 
+	// /* get an appropriate EGL frame buffer configuration */
+	// if (!eglChooseConfig(display, attribute_list, &config, 1, &num_config))
+	// {
+	// 	cout << "eglChooseConfig fail." << endl;
+	// }
+	// else
+	// {
 
-	/* create a surface */
-	//native_window = createNativeWindow();
-	eglBindAPI(EGL_OPENGL_API);
+	// }
+
+	// //EGLint attribute_list_2[] = {
+	// //EGL_CONTEXT_CLIENT_VERSION, 3,
+	// //EGL_NONE
+	// //};
+
+	// ///* create an EGL rendering context */
+	// context = eglCreateContext(display, config, 0 , NULL);
+
+	// if (context == 0)
+	// {
+	// 	cout << "Creat Contest fail." << endl;
+	// 	//return false;
+	// }
+	// else
+	// {
+	// 	cout << "Susscess Creat Contest" << endl;
+	// }
+
+
+
+	// /* create a surface */
+	// //native_window = createNativeWindow();
+	// eglBindAPI(EGL_OPENGL_API);
 
 	
-    //EGLNativePixmapType pixmap;
-    //surface = eglCreatePixmapSurface(display, config, pbufferAttribs);
+    // //EGLNativePixmapType pixmap;
+    // //surface = eglCreatePixmapSurface(display, config, pbufferAttribs);
 
-    /* create an EGL Pbuff surface */
-    surface = eglCreatePbufferSurface (display, config, pbufferAttribs);
+    // /* create an EGL Pbuff surface */
+    // surface = eglCreatePbufferSurface (display, config, pbufferAttribs);
 
 
-	EGLint w,h;
-	if(!eglQuerySurface(display ,surface,EGL_WIDTH,&w)||!eglQuerySurface(display ,surface,EGL_HEIGHT,&h))
-	{
-		cout << "Creat surface fail." << endl;
-		//return false;
-	}
-	else 
-	{
-		cout << "Susscess Creat surface." << surface << endl;
-	}
+	// EGLint w,h;
+	// if(!eglQuerySurface(display ,surface,EGL_WIDTH,&w)||!eglQuerySurface(display ,surface,EGL_HEIGHT,&h))
+	// {
+	// 	cout << "Creat surface fail." << endl;
+	// 	//return false;
+	// }
+	// else 
+	// {
+	// 	cout << "Susscess Creat surface." << surface << endl;
+	// }
 
 
 	/* connect the context to the surface */
@@ -139,7 +139,6 @@ int main(int argc, char *argv[])
 	//	cout << "Connect fail." << endl;
 	//	return 0;
 	//} 
-
 
     glutInit(&argc, argv);
     glutInitWindowSize(1, 1);
@@ -297,8 +296,9 @@ void grab(int FBO)
  
     }
     char filename[50];
-
-    snprintf(filename,50,"test_%d.png", FBO);  
+    time_t timep;
+    time (&timep);
+    snprintf(filename,50,"test_%d_%s.png", FBO , ctime(&timep));  
     bool bSuccess = FreeImage_Save(FIF_PNG, bitmap, filename , PNG_DEFAULT);
     FreeImage_Unload(bitmap);
     FreeImage_DeInitialise();
