@@ -157,55 +157,30 @@ int main(int argc, char *argv[])
     //cout << "Susscess GLUT." << endl;
 
     glewInit();
-    //unsigned int  fbo;
-    //glGenFramebuffers(1, &fbo);
-    //glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-
-    //unsigned int rbo;
-    //glGenRenderbuffers(1, &rbo);
-    //glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Width, Height);  
-    //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
-
-    // if(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE)
-    // {
-    //     cout << "Susscess FBO." << endl;
-    // }
-    
- 
-    //glBindFramebuffer( GL_DRAW_FRAMEBUFFER,GL_FRONT_LEFT);
-    //glClearColor(0.5f, 0.2f, 0.3f , 1.0f);
-    //glClear(GL_COLOR_BUFFER_BIT);
 
     unsigned int m_tex = 0;
     unsigned int m_FboID = 0;
 	unsigned int m_RboID = 0;
     
-    //glEnable(GL_TEXTURE_2D);
+
 	glGenTextures(1,&m_tex);
 	glBindTexture(GL_TEXTURE_2D,m_tex);
     glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,Width,Height,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL); 
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); 
-    //glEnable(GL_TEXTURE_2D);
 
-    //glEnable(GL_RENDERBUFFER);
 	glGenRenderbuffers(1,&m_RboID);
 	glBindRenderbuffer(GL_RENDERBUFFER,m_RboID);
 	glRenderbufferStorageEXT(GL_RENDERBUFFER,GL_DEPTH_COMPONENT, Width, Height);
 	glBindRenderbufferEXT(GL_RENDERBUFFER,0);
-	//glDisable(GL_RENDERBUFFER);
 
-	//glEnable(GL_FRAMEBUFFER);
 	glGenFramebuffersEXT(1,&m_FboID);
 	glBindFramebufferEXT(GL_FRAMEBUFFER,m_FboID);
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,m_tex,0);
 	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_RENDERBUFFER,m_RboID);
 	GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER);
     glBindFramebuffer(GL_FRAMEBUFFER,0);
-	//glDisable(GL_FRAMEBUFFER);
 
-    //glDrawBuffer(GL_FRONT);
     glClearColor(1.0f, 0.0f, 1.0f , 1.0f);
     glClearDepth(1.0);
 
@@ -238,8 +213,8 @@ int main(int argc, char *argv[])
     //glutSwapBuffers();
     
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER,0);
-    //glBindFramebuffer(GL_READ_FRAMEBUFFER,m_FboID);
 
+    //glBindFramebuffer(GL_READ_FRAMEBUFFER,m_FboID);
     //glViewport(0, 0, Width, Height);
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //glBlitFramebuffer(0,0,Width,Height,0,0,Width,Height,GL_COLOR_BUFFER_BIT,GL_NEAREST);
@@ -282,56 +257,6 @@ int main(int argc, char *argv[])
 
     return 0;
 
-
-    // FILE*    pDummyFile;
-    // FILE*    pWritingFile;
-    // GLubyte* pPixelData;
-    // GLubyte  BMP_Header[BMP_Header_Length];
-    // GLint    i, j;
-    // GLint    PixelDataLength;
-
-    // // 计算像素数据的实际长度
-    // i = WindowWidth * 3;   // 得到每一行的像素数据长度
-    // while( i%4 != 0 )      // 补充数据，直到i是的倍数
-    //     ++i;               // 本来还有更快的算法，
-    //                        // 但这里仅追求直观，对速度没有太高要求
-    // PixelDataLength = i * WindowHeight;
-
-    // // 分配内存和打开文件
-    // pPixelData = (GLubyte*)malloc(PixelDataLength);
-    // if( pPixelData == 0 )
-    //     exit(0);
-
-    // pDummyFile = fopen("dummy.bmp", "rb");
-    // if( pDummyFile == 0 )
-    //     exit(0);
-
-    // pWritingFile = fopen("grab.bmp", "wb");
-    // if( pWritingFile == 0 )
-    //     exit(0);
-
-    // // 读取像素
-    // glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-    // glReadPixels(0, 0, WindowWidth, WindowHeight,
-    //     GL_BGR_EXT, GL_UNSIGNED_BYTE, pPixelData);
-
-    // // 把dummy.bmp的文件头复制为新文件的文件头
-    // fread(BMP_Header, sizeof(BMP_Header), 1, pDummyFile);
-    // fwrite(BMP_Header, sizeof(BMP_Header), 1, pWritingFile);
-    // fseek(pWritingFile, 0x0012, SEEK_SET);
-    // i = WindowWidth;
-    // j = WindowHeight;
-    // fwrite(&i, sizeof(i), 1, pWritingFile);
-    // fwrite(&j, sizeof(j), 1, pWritingFile);
-
-    // // 写入像素数据
-    // fseek(pWritingFile, 0, SEEK_END);
-    // fwrite(pPixelData, PixelDataLength, 1, pWritingFile);
-
-    // // 释放内存和关闭文件
-    // fclose(pDummyFile);
-    // fclose(pWritingFile);
-    // free(pPixelData);
 }
 
 
@@ -512,83 +437,3 @@ void Rectangle(void) {
     //刷新缓冲，保证绘图命令能被执行
     glFlush();
 }
-
-// BOOL WriteBitmapFile(char * filename, int wid, int hei, unsigned char * bitmapData)
-// {
-// 	int width = wid;
-// 	int height = hei;
- 
-// 	BITMAPFILEHEADER bitmapFileHeader;
-// 	memset(&bitmapFileHeader, 0, sizeof(BITMAPFILEHEADER));
-// 	bitmapFileHeader.bfSize = sizeof(BITMAPFILEHEADER);
-// 	bitmapFileHeader.bfType = 0x4d42;	//BM
-// 	bitmapFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
- 
-// 	//填充BITMAPINFOHEADER
-// 	BITMAPINFOHEADER bitmapInfoHeader;
-// 	memset(&bitmapInfoHeader, 0, sizeof(BITMAPINFOHEADER));
-// 	bitmapInfoHeader.biSize = sizeof(BITMAPINFOHEADER);
-// 	bitmapInfoHeader.biWidth = width;
-// 	bitmapInfoHeader.biHeight = height;
-// 	bitmapInfoHeader.biPlanes = 1;
-// 	bitmapInfoHeader.biBitCount = 24;
-// 	bitmapInfoHeader.biCompression = BI_RGB;
-// 	bitmapInfoHeader.biSizeImage = width * abs(height) * 3;
- 
-// 	//////////////////////////////////////////////////////////////////////////
-// 	FILE * filePtr;
-// 	unsigned char tempRGB;
-// 	int imageIdx;
- 
-// 	//swap R B
-// 	for (imageIdx = 0; imageIdx < bitmapInfoHeader.biSizeImage; imageIdx += 3)
-// 	{
-// 		tempRGB = bitmapData[imageIdx];
-// 		bitmapData[imageIdx] = bitmapData[imageIdx + 2];
-// 		bitmapData[imageIdx + 2] = tempRGB;
-// 	}
- 
-// 	filePtr = fopen(filename, "wb");
-// 	if (NULL == filePtr)
-// 	{
-// 		return FALSE;
-// 	}
- 
-// 	fwrite(&bitmapFileHeader, sizeof(BITMAPFILEHEADER), 1, filePtr);
- 
-// 	fwrite(&bitmapInfoHeader, sizeof(BITMAPINFOHEADER), 1, filePtr);
- 
-// 	fwrite(bitmapData, bitmapInfoHeader.biSizeImage, 1, filePtr);
- 
-// 	fclose(filePtr);
-// 	return TRUE;
-// }
- 
- 
-// void snap_shot(int img_w, int img_h)
-// {
-// 	GLubyte* pPixelData;
-// 	GLint line_width;
-// 	GLint PixelDataLength;
- 
-// 	line_width = img_w * 3; // 得到每一行的像素数据长度 
-// 	line_width = (line_width + 3) / 4 * 4;
-	
-// 	PixelDataLength = line_width * img_h;
- 
-// 	// 分配内存和打开文件 
-// 	pPixelData = (GLubyte*)malloc(PixelDataLength);
-// 	if (pPixelData == 0)
-// 		exit(0);
- 
- 
-// 	// 读取像素 
-// 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
- 
-// 	//glReadPixels(0, 0, img_w, img_h, GL_BGR_EXT, GL_UNSIGNED_BYTE, pPixelData);
-// 	glReadPixels(0, 0, img_w, img_h, GL_RGB, GL_UNSIGNED_BYTE, pPixelData);
- 
-	
-// 	WriteBitmapFile("snapshot.bmp", img_w, img_h, pPixelData);
-// 	free(pPixelData);
-// }
